@@ -2,6 +2,8 @@ ARG BUILD_FROM=ghcr.io/hassio-addons/base:12.2.4
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 
+ENV TRACCAR_VERSION 5.6
+
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
