@@ -13,21 +13,16 @@ COPY rootfs /
 # Set working dir
 WORKDIR /opt/traccar
 
-# Setup base
-RUN \
-    apk add --no-cache \
-        mariadb-client=10.6.9-r0 \
-        nginx=1.22.0-r1 \
-        nss=3.78.1-r0 \
-        openjdk11-jre-headless=11.0.16.1_p1-r0 \
-        xmlstarlet=1.6.1-r0 \
-    \
+RUN set -ex && \
+    apk add --no-cache --no-progress openjdk11-jre-headless wget && \
     wget -qO /tmp/traccar.zip https://github.com/traccar/traccar/releases/download/v$TRACCAR_VERSION/traccar-other-$TRACCAR_VERSION.zip && \
     unzip -qo /tmp/traccar.zip -d /opt/traccar && \
     rm /tmp/traccar.zip && \
     apk del wget
-    \
-    && rm -fr /tmp/*
+
+ENTRYPOINT ["java", "-Xms1g", "-Xmx1g", "-Djava.net.preferIPv4Stack=true"]
+
+CMD ["-jar", "tracker-server.jar", "conf/traccar.xml"]
 
 # Build arguments
 ARG BUILD_ARCH
