@@ -20,11 +20,10 @@ RUN \
         openjdk11-jre-headless=11.0.16.1_p1-r0 \
         xmlstarlet=1.6.1-r0 \
     \
-    && curl -J -L -o /tmp/traccar.zip \
-      "https://github.com/traccar/traccar/releases/download/v5.6/traccar-other-5.6.zip" \
-    \
-    && mkdir -p /opt/traccar \
-    && unzip -d /opt/traccar /tmp/traccar.zip \
+    wget -qO /tmp/traccar.zip https://github.com/traccar/traccar/releases/download/v$TRACCAR_VERSION/traccar-other-$TRACCAR_VERSION.zip && \
+    unzip -qo /tmp/traccar.zip -d /opt/traccar && \
+    rm /tmp/traccar.zip && \
+    apk del wget
     \
     && rm -fr /tmp/*
 
