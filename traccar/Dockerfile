@@ -22,7 +22,7 @@ RUN set -ex && \
 
 ENTRYPOINT ["java", "-Xms1g", "-Xmx1g", "-Djava.net.preferIPv4Stack=true"]
 
-CMD ["-jar", "tracker-server.jar", "conf/traccar.xml"]
+CMD ["-jar", "tracker-server.jar", "traccar.xml"]
 
 # Build arguments
 ARG BUILD_ARCH
